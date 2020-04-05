@@ -1,6 +1,6 @@
 **/.idea/*
+**/.vscode/*
 .pyc
 .pytest_cache/
 **/.ipynb_checkpoints
 **/__pycache__
-
