@@ -4,6 +4,24 @@ import numpy as np
 from IPython.display import clear_output
 from tensorflow import keras
 
+class TrainingPlotFunc(keras.callbacks.Callback):
+
+    def __init__(self, V, R, F, mean, std, title):
+        self.V = V
+        self.I = np.arange(0,R,0.01)
+        self.mean = mean
+        self.std = std
+        self.F = F
+
+    # This function is called at the end of each epoch
+    def on_epoch_end(self, epoch, logs={}):
+        clear_output(wait=True)
+        plt.ylim([np.min(self.F(self.I))-0.5,np.max(self.F(self.I))+0.5])
+        plt.plot(self.V*self.std+self.mean, self.model.predict(self.V), c='r', label='Prediction')
+        plt.plot(self.I, self.F(self.I), c='b', label='sin')
+        plt.legend(loc='lower left')
+        plt.show()
+
 class TrainingPlot(keras.callbacks.Callback):
 
     def __init__(self, title):
